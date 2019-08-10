@@ -1,4 +1,3 @@
-import java.util.Arrays;
 public class Program {
     public static void main(String[] args) {
         System.out.println(SequenceFinder.findSequence( new int[] {0, 1, 2, 4, 3, 5})==27? "PASS":"FAIL");
@@ -6,6 +5,5 @@ public class Program {
         System.out.println(SequenceFinder.findSequence( new int[] {-1})==-1? "PASS":"FAIL");
         System.out.println(SequenceFinder.findSequence( new int[] {-1, 0, 1})==1? "PASS":"FAIL");
         System.out.println(SequenceFinder.findSequence( new int[] {1,1})==2? "PASS":"FAIL");
-
     }
 }
