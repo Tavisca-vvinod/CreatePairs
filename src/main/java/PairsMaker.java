@@ -1,15 +1,13 @@
-import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.Collections;
 
-public class SequenceFinder {
-    public static int findSequence(int[] ints) {
+public class PairsMaker {
+    public static int findPairsAndSingles(int[] ints) {
         int sum=0;
-        int numberOfNegatives=findNegatives(ints);
+        int negativPositiveZero[]=findNegativesAndPostiviesAndZero(ints);
         Arrays.sort(ints);
-        if(numberOfNegatives%2==0)
+        if(negativPositiveZero[0]%2==0)
         {
-            for(int i = 0 ; i<numberOfNegatives;i++)
+            for(int i = 0 ; i<negativPositiveZero[0];i++)
             {
                 sum=sum+(ints[i]*ints[i+1]);
                 i++;
@@ -19,7 +17,7 @@ public class SequenceFinder {
         {
             if(Arrays.binarySearch(ints,0)>=0)
             {
-                for(int i=0; i<numberOfNegatives-1;i++)
+                for(int i=0; i<negativPositiveZero[0]-1;i++)
                 {
                     sum=sum+(ints[i]*ints[i+1]);
                     i++;
@@ -27,17 +25,16 @@ public class SequenceFinder {
             }
             else
             {
-                for(int i=0; i<numberOfNegatives-1;i++)
+                for(int i=0; i<negativPositiveZero[0]-1;i++)
                 {
                     sum=sum+(ints[i]*ints[i+1]);
                     i++;
                 }
-                sum=sum+ints[numberOfNegatives-1];
+                sum=sum+ints[negativPositiveZero[0]-1];
             }
         }
-        int numberOfPositives=findPostivies(ints);
-        int postives[]=makePosArray(ints,numberOfPositives);
-        if(numberOfPositives%2==0&&numberOfPositives!=0)
+        int postives[]=makePosArray(ints,negativPositiveZero[1]);
+        if(negativPositiveZero[1]%2==0&&negativPositiveZero[1]!=0)
         {
             if(postives[0]*postives[1]>postives[0]+postives[1])
             {
@@ -53,7 +50,7 @@ public class SequenceFinder {
                 i++;
             }
         }
-        else if(numberOfPositives!=0 && numberOfPositives%2!=0)
+        else if(negativPositiveZero[1]!=0 && negativPositiveZero[1]%2!=0)
         {
             sum=sum+postives[0];
             for(int i=1;i<postives.length;i++)
@@ -76,28 +73,21 @@ public class SequenceFinder {
         }
         return pos;
     }
-    public static int findPostivies(int[] ints)
+    public static int[] findNegativesAndPostiviesAndZero(int[] ints)
     {
-        int count=0;
+        int negCount=0;
+        int posCount=0;
         for(int i:ints)
         {
             if(i>0)
             {
-                count++;
+                posCount++;
             }
-        }
-        return count;
-    }
-    public static int findNegatives(int[] ints)
-    {
-        int count=0;
-        for(int i:ints)
-        {
-            if(i<0)
+            else if(i<0)
             {
-                count++;
+                negCount++;
             }
         }
-        return count;
+        return new int[]{negCount,posCount};
     }
 }
