@@ -1,5 +1,10 @@
 import java.util.Arrays;
 public class PairsMaker {
+    public static int max(int a, int b)
+    {
+         int maxx= (a*b > a+b ) ? a*b :  a+b;
+        return maxx;
+    }
     public static int findPairsAndSingles(int[] numbers) {
         int sum=0;
         int negPos[]= findNegativesAndPositives(numbers);
@@ -8,13 +13,13 @@ public class PairsMaker {
         Arrays.sort(numbers);
         if(noOfNeg%2==0) {
             for(int i = 0 ; i<noOfNeg;i++) {
-                sum=sum+(numbers[i]*numbers[i+1]);
+                sum=sum+max(numbers[i],numbers[i+1]);
                 i++;
             }
         }
         else {
             for(int i=0; i<noOfNeg-1;i++) {
-                sum=sum+(numbers[i]*numbers[i+1]);
+                sum=sum+max(numbers[i],numbers[i+1]);
                 i++;
             }
             if(Arrays.binarySearch(numbers,0)<0) {
@@ -24,14 +29,9 @@ public class PairsMaker {
         if(noOfPos%2==0&&noOfPos!=0) {
             int firstPosNumber=numbers[numbers.length-noOfPos];
             int secPosNumber=numbers[numbers.length-noOfPos+1];
-            if(firstPosNumber*secPosNumber>firstPosNumber+secPosNumber) {
-                sum=sum+firstPosNumber*secPosNumber;
-            }
-            else {
-                sum=sum+firstPosNumber+secPosNumber;
-            }
+            sum=sum+max(firstPosNumber,secPosNumber);
             for(int i=numbers.length-noOfPos+2;i<numbers.length;i++) {
-                sum=sum+numbers[i]*numbers[i+1];
+                sum=sum+max(numbers[i],numbers[i+1]);
                 i++;
             }
         }
@@ -39,7 +39,7 @@ public class PairsMaker {
             int firstPosNumber=numbers[numbers.length-noOfPos];
             sum=sum+firstPosNumber;
             for(int i=numbers.length-noOfPos+1;i<numbers.length;i++) {
-                sum=sum+(numbers[i]*numbers[i+1]);
+                sum=sum+max(numbers[i],numbers[i+1]);
                 i++;
             }
         }
