@@ -15,21 +15,13 @@ public class PairsMaker {
         }
         else
         {
-            if(Arrays.binarySearch(ints,0)>=0)
+            for(int i=0; i<negativPositiveZero[0]-1;i++)
             {
-                for(int i=0; i<negativPositiveZero[0]-1;i++)
-                {
-                    sum=sum+(ints[i]*ints[i+1]);
-                    i++;
-                }
+                sum=sum+(ints[i]*ints[i+1]);
+                i++;
             }
-            else
+            if(Arrays.binarySearch(ints,0)<0)
             {
-                for(int i=0; i<negativPositiveZero[0]-1;i++)
-                {
-                    sum=sum+(ints[i]*ints[i+1]);
-                    i++;
-                }
                 sum=sum+ints[negativPositiveZero[0]-1];
             }
         }
