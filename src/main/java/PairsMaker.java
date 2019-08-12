@@ -1,70 +1,58 @@
 import java.util.Arrays;
-
 public class PairsMaker {
-    public static int findPairsAndSingles(int[] ints) {
+    public static int findPairsAndSingles(int[] numbers) {
         int sum=0;
-        int negativPositiveZero[]=findNegativesAndPostiviesAndZero(ints);
-        Arrays.sort(ints);
-        if(negativPositiveZero[0]%2==0)
-        {
-            for(int i = 0 ; i<negativPositiveZero[0];i++)
-            {
-                sum=sum+(ints[i]*ints[i+1]);
+        int negPos[]= findNegativesAndPositives(numbers);
+        int noOfNeg=negPos[0];
+        int noOfPos=negPos[1];
+        Arrays.sort(numbers);
+        if(noOfNeg%2==0) {
+            for(int i = 0 ; i<noOfNeg;i++) {
+                sum=sum+(numbers[i]*numbers[i+1]);
                 i++;
             }
         }
-        else
-        {
-            for(int i=0; i<negativPositiveZero[0]-1;i++)
-            {
-                sum=sum+(ints[i]*ints[i+1]);
+        else {
+            for(int i=0; i<noOfNeg-1;i++) {
+                sum=sum+(numbers[i]*numbers[i+1]);
                 i++;
             }
-            if(Arrays.binarySearch(ints,0)<0)
-            {
-                sum=sum+ints[negativPositiveZero[0]-1];
+            if(Arrays.binarySearch(numbers,0)<0) {
+                sum=sum+numbers[noOfNeg-1];
             }
         }
-        if(negativPositiveZero[1]%2==0&&negativPositiveZero[1]!=0)
-        {
-            if(ints[ints.length-negativPositiveZero[1]]*ints[ints.length-negativPositiveZero[1]+1]>ints[ints.length-negativPositiveZero[1]]+ints[ints.length-negativPositiveZero[1]+1])
-            {
-                sum=sum+ints[ints.length-negativPositiveZero[1]]*ints[ints.length-negativPositiveZero[1]+1];
+        if(noOfPos%2==0&&noOfPos!=0) {
+            int firstPosNumber=numbers[numbers.length-noOfPos];
+            int secPosNumber=numbers[numbers.length-noOfPos+1];
+            if(firstPosNumber*secPosNumber>firstPosNumber+secPosNumber) {
+                sum=sum+firstPosNumber*secPosNumber;
             }
-            else
-            {
-                sum=sum+ints[ints.length-negativPositiveZero[1]]+ints[ints.length-negativPositiveZero[1]+1];
+            else {
+                sum=sum+firstPosNumber+secPosNumber;
             }
-            for(int i=ints.length-negativPositiveZero[1]+2;i<ints.length;i++)
-            {
-                sum=sum+ints[i]*ints[i+1];
+            for(int i=numbers.length-noOfPos+2;i<numbers.length;i++) {
+                sum=sum+numbers[i]*numbers[i+1];
                 i++;
             }
         }
-        else if(negativPositiveZero[1]!=0 && negativPositiveZero[1]%2!=0)
-        {
-            sum=sum+ints[ints.length-negativPositiveZero[1]];
-            for(int i=ints.length-negativPositiveZero[1]+1;i<ints.length;i++)
-            {
-                sum=sum+(ints[i]*ints[i+1]);
+        else if(noOfPos!=0 && noOfPos%2!=0) {
+            int firstPosNumber=numbers[numbers.length-noOfPos];
+            sum=sum+firstPosNumber;
+            for(int i=numbers.length-noOfPos+1;i<numbers.length;i++) {
+                sum=sum+(numbers[i]*numbers[i+1]);
                 i++;
             }
         }
-        System.out.print(sum);
         return sum;
     }
-   public static int[] findNegativesAndPostiviesAndZero(int[] ints)
-    {
+   public static int[] findNegativesAndPositives(int[] ints) {
         int negCount=0;
         int posCount=0;
-        for(int i:ints)
-        {
-            if(i>0)
-            {
+        for(int i:ints) {
+            if(i>0) {
                 posCount++;
             }
-            else if(i<0)
-            {
+            else if(i<0) {
                 negCount++;
             }
         }
