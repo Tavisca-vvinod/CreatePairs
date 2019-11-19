@@ -1,0 +1,93 @@
+using System;
+
+namespace ConsoleApp1
+{
+    public class PairsMaker
+    {
+        public static int max(int a, int b)
+        {
+            int maxx = (a * b > a + b) ? a * b : a + b;
+            return maxx;
+        }
+        public static int findPairsAndSingles(int[] numbers)
+        {
+            int sum = 0;
+            int[] negPos = findNegativesAndPositives(numbers);
+            int noOfNeg = negPos[0];
+            int noOfPos = negPos[1];
+            Array.Sort(numbers);
+            if (noOfNeg % 2 == 0)
+            {
+                for (int i = 0; i < noOfNeg; i++)
+                {
+                    sum = sum + max(numbers[i], numbers[i + 1]);
+                    i++;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < noOfNeg - 1; i++)
+                {
+                    sum = sum + max(numbers[i], numbers[i + 1]);
+                    i++;
+                }
+                if (Array.BinarySearch(numbers, 0) < 0)
+                {
+                    sum = sum + numbers[noOfNeg - 1];
+                }
+            }
+            if (noOfPos % 2 == 0 && noOfPos != 0)
+            {
+                int firstPosNumber = numbers[numbers.Length - noOfPos];
+                int secPosNumber = numbers[numbers.Length - noOfPos + 1];
+                sum = sum + max(firstPosNumber, secPosNumber);
+                for (int i = numbers.Length - noOfPos + 2; i < numbers.Length; i++)
+                {
+                    sum = sum + max(numbers[i], numbers[i + 1]);
+                    i++;
+                }
+            }
+            else if (noOfPos != 0 && noOfPos % 2 != 0)
+            {
+                int firstPosNumber = numbers[numbers.Length - noOfPos];
+                sum = sum + firstPosNumber;
+                for (int i = numbers.Length - noOfPos + 1; i < numbers.Length; i++)
+                {
+                    sum = sum + max(numbers[i], numbers[i + 1]);
+                    i++;
+                }
+            }
+            return sum;
+        }
+        public static int[] findNegativesAndPositives(int[] ints)
+        {
+            int negCount = 0;
+            int posCount = 0;
+            foreach (int i in ints)
+            {
+                if (i > 0)
+                {
+                    posCount++;
+                }
+                else if (i < 0)
+                {
+                    negCount++;
+                }
+            }
+            return new int[] { negCount, posCount };
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(PairsMaker.findPairsAndSingles(new int[] { 0, 1, 2, 4, 3, 5 }) == 27 ? "PASS" : "FAIL");
+            Console.WriteLine(PairsMaker.findPairsAndSingles(new int[] { -1, 1, 2, 3 }) == 6 ? "PASS" : "FAIL");
+            Console.WriteLine(PairsMaker.findPairsAndSingles(new int[] { -1 }) == -1 ? "PASS" : "FAIL");
+            Console.WriteLine(PairsMaker.findPairsAndSingles(new int[] { -1, 0, 1 }) == 1 ? "PASS" : "FAIL");
+            Console.WriteLine(PairsMaker.findPairsAndSingles(new int[] { 1, 1 }) == 2 ? "PASS" : "FAIL");
+            Console.ReadKey();
+        }
+    }
+}
