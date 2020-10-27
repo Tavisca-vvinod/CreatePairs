@@ -5,5 +5,6 @@ public class Program {
         System.out.println(PairsMaker.findPairsAndSingles( new int[] {-1})==-1? "PASS":"FAIL");
         System.out.println(PairsMaker.findPairsAndSingles( new int[] {-1, 0, 1})==1? "PASS":"FAIL");
         System.out.println(PairsMaker.findPairsAndSingles( new int[] {1,1})==2? "PASS":"FAIL");
+		//change
     }
 }
